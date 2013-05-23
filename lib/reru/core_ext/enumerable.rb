@@ -6,7 +6,7 @@ module Reru::CoreExt::Enumerable
   extend ActiveSupport::Concern
 
   included do
-    def to_es
+    def as_stream
       Reru::EnumerableStream.new(self)
     end
   end

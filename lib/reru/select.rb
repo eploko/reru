@@ -6,8 +6,8 @@ class Reru::Select < Reru::Stream
     @block = block
   end
   
-  def emit(value)
-    return if value == Reru::EOS
-    super if @block.call(value)
+  def emit(event)
+    return if event == Reru::EOS
+    super if @block.call(event.value)
   end
 end

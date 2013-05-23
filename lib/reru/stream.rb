@@ -12,14 +12,14 @@ class Reru::Stream
   
   def to_es ; self ; end
   
-  def update(source, value)
-    emit(value)
-    shutdown(source) if is_eos?(value)
+  def update(source, event)
+    emit(event)
+    shutdown(source) if is_eos?(event)
   end
   
-  def emit(value)
+  def emit(event)
     changed
-    notify_observers(self, value)
+    notify_observers(self, event)
   end
   
   def consume(&block)
@@ -50,7 +50,6 @@ class Reru::Stream
   end
   
   def shutdown(source)
-    puts "Stream has ENDED: #{source}"
     unsubscribe(source)
   end
   

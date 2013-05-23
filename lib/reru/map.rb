@@ -6,8 +6,8 @@ class Reru::Map < Reru::Stream
     @block = block
   end
   
-  def emit(value)
-    return if value == Reru::EOS
-    super @block.call(value)
+  def emit(event)
+    return if event == Reru::EOS
+    super @block.call(event.value)
   end
 end

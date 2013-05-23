@@ -1,4 +1,5 @@
 require 'reru/eos'
+require 'reru/next'
 require 'reru/stream'
 
 class Reru::EnumerableStream < Reru::Stream
@@ -7,7 +8,7 @@ class Reru::EnumerableStream < Reru::Stream
   end  
   
   def run
-    @enumerable.each { |value| emit(value) }
+    @enumerable.each { |value| emit(Reru::Next.new(value)) }
     emit(Reru::EOS)
   end
 end
