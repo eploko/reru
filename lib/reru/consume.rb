@@ -1,4 +1,4 @@
-class Reru::StreamConsumer
+class Reru::Consume
   def initialize(source, &block)
     @block = block
     source.add_observer(self)

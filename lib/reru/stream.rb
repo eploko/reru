@@ -4,11 +4,11 @@ require 'observer'
 class Reru::Stream
 end
 
+require 'reru/consume'
 require 'reru/dispatcher'
 require 'reru/log'
 require 'reru/map'
 require 'reru/select'
-require 'reru/stream_consumer'
 
 class Reru::Stream
   include Observable
@@ -33,7 +33,7 @@ class Reru::Stream
   end
   
   def consume(&block)
-    Reru::StreamConsumer.new(self, &block)
+    Reru::Consume.new(self, &block)
   end
   
   def select(&block)
