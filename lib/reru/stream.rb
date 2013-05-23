@@ -14,12 +14,14 @@ class Reru::Stream
   include Observable
 
   def initialize(*sources)
-    Reru::Dispatcher.new(*sources).each do |event|
-      emit(event)
-    end
+    Reru::Dispatcher.new(*sources).each { |event| dispatch(event) }
   end
   
   def to_es ; self ; end
+  
+  def dispatch(event)
+    emit(event)    
+  end
     
   def emit(event)
     changed
