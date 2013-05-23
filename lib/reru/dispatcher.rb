@@ -3,8 +3,8 @@ class Reru::Dispatcher
     @sources = sources
   end
   
-  def sink(&block)
-    @block = block
+  def each(&sink)
+    @sink = sink
     subscribe(*@sources)
   end
   
@@ -16,7 +16,7 @@ class Reru::Dispatcher
   end
   
   def update(source, event)
-    @block.call(event)
+    @sink.call(event)
     shutdown(source) if event.eos?
   end
   

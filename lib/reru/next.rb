@@ -9,4 +9,6 @@ class Reru::Next < Reru::Event
 
   def next? ; true ; end
   def value? ; true ; end
+  
+  def to_s ; @value.to_s ; end
 end

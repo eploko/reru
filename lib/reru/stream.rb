@@ -5,6 +5,7 @@ class Reru::Stream
 end
 
 require 'reru/dispatcher'
+require 'reru/log'
 require 'reru/map'
 require 'reru/select'
 require 'reru/stream_consumer'
@@ -13,7 +14,7 @@ class Reru::Stream
   include Observable
 
   def initialize(*sources)
-    Reru::Dispatcher.new(*sources).sink do |event|
+    Reru::Dispatcher.new(*sources).each do |event|
       emit(event)
     end
   end
@@ -25,6 +26,10 @@ class Reru::Stream
     notify_observers(self, event)
   end
   
+  def merge(right)
+    Reru::Stream.new(self, right)
+  end
+  
   def consume(&block)
     Reru::StreamConsumer.new(self, &block)
   end
@@ -33,11 +38,11 @@ class Reru::Stream
     Reru::Select.new(self, &block)
   end
   
-  def merge(right)
-    Reru::Stream.new(self, right)
-  end
-
   def map(&block)
     Reru::Map.new(self, &block)
+  end
+  
+  def log
+    Reru::Log.new(self)
   end
 end
