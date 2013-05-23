@@ -4,6 +4,7 @@ module Reru ; end
 
 require 'reru/enumerable_stream'
 require 'reru/core_ext'
+require 'reru/dispatcher'
 require 'reru/eos'
 require 'reru/eos_event'
 require 'reru/event'

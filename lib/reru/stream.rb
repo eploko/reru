@@ -1,22 +1,25 @@
 require 'observer'
 
+# before we require all of the subclasses, we need to have Stream defined
+class Reru::Stream
+end
+
+require 'reru/dispatcher'
+require 'reru/map'
+require 'reru/select'
 require 'reru/stream_consumer'
 
 class Reru::Stream
   include Observable
 
   def initialize(*sources)
-    @sources = []
-    subscribe(*sources)
+    Reru::Dispatcher.new(*sources).sink do |event|
+      emit(event)
+    end
   end
   
   def to_es ; self ; end
-  
-  def update(source, event)
-    emit(event)
-    shutdown(source) if event.eos?
-  end
-  
+    
   def emit(event)
     changed
     notify_observers(self, event)
@@ -36,21 +39,5 @@ class Reru::Stream
 
   def map(&block)
     Reru::Map.new(self, &block)
-  end
-  
-  def subscribe(*sources)
-    sources.each do |source|
-      @sources << source
-      source.add_observer(self)
-    end
-  end
-  
-  def shutdown(source)
-    unsubscribe(source)
-  end
-  
-  def unsubscribe(source)
-    source.delete_observer(self)
-    @sources.delete(source)
   end
 end
