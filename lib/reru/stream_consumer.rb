@@ -4,8 +4,8 @@ class Reru::StreamConsumer
     source.add_observer(self)
   end
   
-  def update(source, value)
-    return if value == Reru::EOS
-    @block.call(value)
+  def update(source, event)
+    return if event.eos?
+    @block.call(event.value)
   end
 end

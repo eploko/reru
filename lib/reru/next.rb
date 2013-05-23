@@ -6,4 +6,7 @@ class Reru::Next < Reru::Event
   def initialize(value)
     @value = value
   end
+
+  def next? ; true ; end
+  def value? ; true ; end
 end

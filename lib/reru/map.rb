@@ -1,3 +1,4 @@
+require 'reru/next'
 require 'reru/stream'
 
 class Reru::Map < Reru::Stream
@@ -7,7 +8,7 @@ class Reru::Map < Reru::Stream
   end
   
   def emit(event)
-    return if event == Reru::EOS
-    super @block.call(event.value)
+    return if event.eos?
+    super Reru::Next.new(@block.call(event.value))
   end
 end

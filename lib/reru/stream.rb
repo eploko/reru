@@ -14,7 +14,7 @@ class Reru::Stream
   
   def update(source, event)
     emit(event)
-    shutdown(source) if is_eos?(event)
+    shutdown(source) if event.eos?
   end
   
   def emit(event)
@@ -36,10 +36,6 @@ class Reru::Stream
 
   def map(&block)
     Reru::Map.new(self, &block)
-  end
-  
-  def is_eos?(value)
-    value == Reru::EOS
   end
   
   def subscribe(*sources)
