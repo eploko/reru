@@ -30,8 +30,12 @@ class Reru::Stream
     Reru::Select.new(self, &block)
   end
   
-  def merge(left, right)
-    new(left, right)
+  def merge(right)
+    Reru::Stream.new(self, right)
+  end
+
+  def map(&block)
+    Reru::Map.new(self, &block)
   end
   
   def is_eos?(value)
