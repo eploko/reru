@@ -1,29 +1,25 @@
 require 'observer'
 
-require 'reru/stream_callbacks'
 require 'reru/stream_consumer'
 
 class Reru::Stream
   include Observable
-  include Reru::StreamCallbacks
-  
-  before :emit, :check_eos
-  
+
   def initialize(*sources)
-    sources.each do |source|
-      source.add_observer(self)
-    end
+    @sources = []
+    subscribe(*sources)
   end
   
   def to_es ; self ; end
   
-  def update(value)
+  def update(source, value)
     emit(value)
+    shutdown(source) if is_eos?(value)
   end
   
   def emit(value)
     changed
-    notify_observers(value)
+    notify_observers(self, value)
   end
   
   def consume(&block)
@@ -38,8 +34,24 @@ class Reru::Stream
     new(left, right)
   end
   
-  def check_eos
-    puts "Checking EOS..."
-    true
+  def is_eos?(value)
+    value == Reru::EOS
+  end
+  
+  def subscribe(*sources)
+    sources.each do |source|
+      @sources << source
+      source.add_observer(self)
+    end
+  end
+  
+  def shutdown(source)
+    puts "Stream has ENDED: #{source}"
+    unsubscribe(source)
+  end
+  
+  def unsubscribe(source)
+    source.delete_observer(self)
+    @sources.delete(source)
   end
 end

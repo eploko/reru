@@ -6,7 +6,8 @@ class Reru::Select < Reru::Stream
     @block = block
   end
   
-  def update(value)
+  def emit(value)
+    return if value == Reru::EOS
     super if @block.call(value)
   end
 end
