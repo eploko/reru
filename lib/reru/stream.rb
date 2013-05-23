@@ -1,9 +1,13 @@
 require 'observer'
 
+require 'reru/stream_callbacks'
 require 'reru/stream_consumer'
 
 class Reru::Stream
   include Observable
+  include Reru::StreamCallbacks
+  
+  before :emit, :check_eos
   
   def initialize(*sources)
     sources.each do |source|
@@ -32,5 +36,10 @@ class Reru::Stream
   
   def merge(left, right)
     new(left, right)
+  end
+  
+  def check_eos
+    puts "Checking EOS..."
+    true
   end
 end

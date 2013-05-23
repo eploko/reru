@@ -1,0 +1,2 @@
+class Reru::Event
+end
