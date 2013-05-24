@@ -1,25 +1,14 @@
 require 'active_support'
 
 require 'reru/func_runner'
-require 'reru/next'
-require 'reru/stream'
+require 'reru/property'
 
-class Reru::Scan < Reru::Stream
+class Reru::Scan < Reru::Property
   def initialize(source, initial, method = nil, &block)
-    super(source)
-    @result = initial
+    super(source, initial)
     @valuator = Reru::FuncRunner.new(method, &block)
   end
   
-  def emit(event)
-    if event.value?
-      @result = @valuator.run(@result, event.value)
-      super Reru::Next.new(@result)
-    else
-      super
-    end
-  end
-
   module SourceMethods
     extend ActiveSupport::Concern
 
