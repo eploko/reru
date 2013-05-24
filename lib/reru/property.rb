@@ -2,17 +2,22 @@ require 'reru/next'
 require 'reru/source'
 
 class Reru::Property < Reru::Source
+  attr_reader :value
+  
   def initialize(source, initial)
     super(source)
-    @result = initial
+    @value = initial
   end
 
   def emit(event)
     if event.value?
-      @result = @valuator.run(@result, event.value)
-      super Reru::Next.new(@result)
+      super Reru::Next.new(step(event.value))
     else
       super
     end
+  end
+  
+  def step(x)
+    @value = @valuator.run(@value, x)
   end
 end
