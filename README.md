@@ -1,5 +1,7 @@
 # Reru
 
+[![Build Status](https://travis-ci.org/eploko/reru.png)](https://travis-ci.org/eploko/reru)
+
 TODO: Write a gem description
 
 ## Installation
