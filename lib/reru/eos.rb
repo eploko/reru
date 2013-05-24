@@ -7,7 +7,7 @@ module Reru
     class EOSEvent < Reru::Event
       include Singleton
   
-      def end? ; true ; end
+      def eos? ; true ; end
       def to_s ; '<Reru::EOS>' ; end
     end
     EOSEvent::instance

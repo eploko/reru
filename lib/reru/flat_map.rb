@@ -11,7 +11,15 @@ class Reru::FlatMap < Reru::Stream
   
   def emit(event)
     if event.value?
-      super Reru::Next.new(@block.call(event.value)) if @block.call(event.value)
+      mapped = @block.call(event.value)
+      if mapped.is_a? Reru::Source
+        mapped.consume{ |x| 
+          super Reru::Next.new(x)
+        }
+        mapped.flush
+      else
+        super Reru::Next.new(mapped)
+      end
     else
       super
     end
