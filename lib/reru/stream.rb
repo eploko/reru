@@ -1,11 +1,9 @@
 require 'reru/source'
 
 class Reru::Stream < Reru::Source
-  def initialize(*sources)
-    super
+  def to_stream
+    self
   end
-  
-  def to_es ; self ; end
     
   def merge(right)
     Reru::Stream.new(self, right)
