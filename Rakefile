@@ -8,7 +8,7 @@ RSpec::Core::RakeTask.new do |t|
 end
 
 desc "Run RSpec with code coverage"
-task :coverage do
+task :cov do
   ENV['COVERAGE'] = 'true'
   Rake::Task["spec"].execute
   `open coverage/index.html`
