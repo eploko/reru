@@ -7,8 +7,15 @@ class Reru::Next < Reru::Event
     @value = value
   end
 
-  def next? ; true ; end
-  def value? ; true ; end
+  def next?
+    true
+  end
   
-  def to_s ; @value.to_s ; end
+  def value?
+    true
+  end
+  
+  def to_s
+    @value.to_s
+  end
 end
