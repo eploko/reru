@@ -22,5 +22,10 @@ describe Reru::BinaryRunner do
     runner.run(@target, @arg)
     block_called.should be_true
   end  
+
+  it "raises ArgumentError if nil target given on run" do
+    runner = Reru::BinaryRunner.new(:message)
+    expect { runner.run(nil, @arg) }.to raise_error ArgumentError 
+  end
 end
 

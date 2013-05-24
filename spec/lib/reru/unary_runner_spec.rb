@@ -20,4 +20,9 @@ describe Reru::UnaryRunner do
     runner.run(@target)
     block_called.should be_true
   end
+  
+  it "raises ArgumentError if nil target given on run" do
+    runner = Reru::UnaryRunner.new(:message)
+    expect { runner.run(nil) }.to raise_error ArgumentError 
+  end
 end
