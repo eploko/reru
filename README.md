@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/eploko/reru.png?branch=master)](https://travis-ci.org/eploko/reru)
 [![Coverage Status](https://coveralls.io/repos/eploko/reru/badge.png?branch=master)](https://coveralls.io/r/eploko/reru?branch=master)
 [![Code Climate](https://codeclimate.com/github/eploko/reru.png)](https://codeclimate.com/github/eploko/reru)
+[![Dependency Status](https://gemnasium.com/eploko/reru.png)](https://gemnasium.com/eploko/reru)
 
 TODO: Write a gem description
 
