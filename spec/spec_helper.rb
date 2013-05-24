@@ -1,5 +1,13 @@
-require 'coveralls'
-Coveralls.wear!
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter
+  ]
+  SimpleCov.start
+else
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 require 'reru'
 

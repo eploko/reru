@@ -2,6 +2,8 @@ class Reru::Dispatcher
   def initialize(*sources)
     @sources = sources
   end
+
+private
   
   def each(&sink)
     @sink = sink
