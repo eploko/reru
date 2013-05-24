@@ -1,5 +1,3 @@
-require 'reru/version'
-
 module Reru ; end
 
 require 'reru/enumerable_stream'
@@ -8,8 +6,13 @@ require 'reru/core_ext'
 require 'reru/dispatcher'
 require 'reru/eos'
 require 'reru/event'
+require 'reru/func_runner'
 require 'reru/log'
 require 'reru/map'
 require 'reru/next'
+require 'reru/property'
 require 'reru/select'
+require 'reru/scan'
+require 'reru/source'
 require 'reru/stream'
+require 'reru/version'
