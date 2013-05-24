@@ -1,9 +1,6 @@
-class Reru::FuncRunner
-  def initialize(method = nil, &block)
-    @method = method
-    @block = block
-  end
-  
+require 'reru/runner'
+
+class Reru::BinaryRunner < Reru::Runner
   def run(target, arg)
     if @method
       target.send(@method, arg)

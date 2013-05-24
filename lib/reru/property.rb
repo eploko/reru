@@ -18,6 +18,6 @@ class Reru::Property < Reru::Source
   end
   
   def step(x)
-    @value = @valuator.run(@value, x)
+    @value = @runner.run(@value, x)
   end
 end

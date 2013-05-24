@@ -2,18 +2,16 @@ require 'active_support'
 
 require 'reru/next'
 require 'reru/stream'
-require 'reru/unary_runner'
 
-class Reru::Map < Reru::Stream
-  def initialize(source, method = nil, &block)
+class Reru::FlatMap < Reru::Stream
+  def initialize(source, &block)
     super(source)
-    @runner = Reru::UnaryRunner.new(method, &block)
+    @block = block
   end
   
   def emit(event)
     if event.value?
-      step = @runner.run(event.value)
-      super Reru::Next.new(step) if step
+      super Reru::Next.new(@block.call(event.value)) if @block.call(event.value)
     else
       super
     end
@@ -23,8 +21,8 @@ class Reru::Map < Reru::Stream
     extend ActiveSupport::Concern
 
     included do
-      def map(*opts, &block)
-        Reru::Map.new(self, *opts, &block)
+      def map(&block)
+        Reru::FlatMap.new(self, &block)
       end
     end
   end
