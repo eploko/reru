@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/eploko/reru.png)](https://codeclimate.com/github/eploko/reru)
 [![Dependency Status](https://gemnasium.com/eploko/reru.png)](https://gemnasium.com/eploko/reru)
 
-TODO: Write a gem description
+A gem to easily do the Functional Reactive Programming voodoo.
 
 ## Installation
 
