@@ -15,8 +15,9 @@ class Reru::Dispatcher
   def update(source, event)
     raise_on_non_observables [source]
     raise_on_non_event event
-    @sink.call(event)
     shutdown(source) if event.eos?
+    return unless sink?
+    @sink.call(event)
   end
 
 private  
@@ -44,6 +45,10 @@ private
     raise ArgumentError, 'Only Reru::Events can be consumed.' unless event.is_a? Reru::Event
   end
   
+  def sink?
+    !!@sink
+  end
+  
   def subscribe(*sources)
     sources.each do |source|
       @sources << source
@@ -58,5 +63,5 @@ private
   def unsubscribe(source)
     source.delete_observer(self)
     @sources.delete(source)
-  end  
+  end
 end

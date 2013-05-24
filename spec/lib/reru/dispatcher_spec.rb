@@ -67,5 +67,16 @@ describe Reru::Dispatcher do
       end    
       dispatcher.update(@observable_target_a, event)
     end    
+
+    it "ignores events if there's no consumer" do
+      dispatcher = Reru::Dispatcher.new(@observable_target_a)
+      expect { dispatcher.update(@observable_target_a, Reru::Event.new) }.to_not raise_error
+    end
+    
+    it "unsubscribes from the source if the event is an EOS" do
+      dispatcher = Reru::Dispatcher.new(@observable_target_a)
+      @observable_target_a.should_receive(:delete_observer).with(dispatcher)
+      dispatcher.update(@observable_target_a, Reru::EOS)
+    end
   end
 end
