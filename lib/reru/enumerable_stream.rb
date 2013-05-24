@@ -4,6 +4,7 @@ require 'reru/stream'
 
 class Reru::EnumerableStream < Reru::Stream
   def initialize(enumerable)
+    super()
     @enumerable = enumerable
   end  
   
