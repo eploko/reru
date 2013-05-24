@@ -11,6 +11,7 @@ strings.flat_map{ |str|
   unless str.empty?
     str.to_i
   else
-    Reru::Never.new
+    Reru::never
   end
 }.log
+strings.flush

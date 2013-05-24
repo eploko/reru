@@ -21,7 +21,7 @@ class Reru::FlatMap < Reru::Stream
     extend ActiveSupport::Concern
 
     included do
-      def map(&block)
+      def flat_map(&block)
         Reru::FlatMap.new(self, &block)
       end
     end
