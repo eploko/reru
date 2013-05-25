@@ -1,0 +1,2 @@
+class Reru::Emitter
+end

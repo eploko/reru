@@ -6,7 +6,7 @@ module Reru::CoreExt::Enumerable
   extend ActiveSupport::Concern
 
   included do
-    def as_stream
+    def as_emitter
       Reru::EnumerableEmitter.new(self)
     end
   end

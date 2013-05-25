@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Reru::EnumerableEmitter do
   it "is a Reru::Stream" do
-    Reru::EnumerableEmitter.ancestors.include?(Reru::Stream).should be_true
+    Reru::EnumerableEmitter.ancestors.include?(Reru::Emitter).should be_true
   end
   
   it "raises ArgumentError if initialized w/o an enumerable" do

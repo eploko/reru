@@ -1,8 +1,8 @@
 require 'reru/eos'
 require 'reru/next'
-require 'reru/stream'
+require 'reru/emitter'
 
-class Reru::EnumerableEmitter < Reru::Stream
+class Reru::EnumerableEmitter < Reru::Emitter
   def initialize(enumerable)
     raise ArgumentError, 'An Enumerable expected.' unless enumerable.is_a? Enumerable
     super()
