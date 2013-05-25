@@ -18,4 +18,8 @@ class Reru::Next < Reru::Event
   def to_s
     @value.to_s
   end
+  
+  def ==(other)
+    return other.is_a?(Reru::Next) && self.value == other.value
+  end
 end

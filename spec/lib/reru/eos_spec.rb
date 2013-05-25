@@ -23,5 +23,11 @@ describe Reru::EOS do
   
   it "is a singleton" do
     @target.class.include?(Singleton).should be_true
-  end  
+    expect { Reru::EOSEvent.new }.to raise_error
+  end
+  
+  it "is equal to other instances" do
+    Reru::EOSEvent.instance.should == Reru::EOS
+    Reru::EOSEvent.instance.should === Reru::EOS
+  end
 end

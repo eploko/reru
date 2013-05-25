@@ -4,6 +4,7 @@ require 'reru/stream'
 
 class Reru::EnumerableStream < Reru::Stream
   def initialize(enumerable)
+    raise ArgumentError, 'An Enumerable expected.' unless enumerable.is_a? Enumerable
     super()
     @enumerable = enumerable
   end  

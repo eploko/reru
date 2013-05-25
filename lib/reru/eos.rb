@@ -3,14 +3,16 @@ require 'singleton'
 require 'reru/event'
 
 module Reru
-  EOS = lambda {
-    class EOSEvent < Reru::Event
-      include Singleton
-  
-      def eos? ; true ; end
-      def to_s ; '<Reru::EOS>' ; end
+  class EOSEvent < Reru::Event
+    include Singleton
+
+    def eos? ; true ; end
+    def to_s ; '<Reru::EOS>' ; end
+    
+    def ==(other)
+      other.eos?
     end
-    EOSEvent::instance
-  }.call.freeze
+  end
+  EOS = EOSEvent::instance.freeze
 end
 

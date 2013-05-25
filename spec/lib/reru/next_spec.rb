@@ -30,4 +30,8 @@ describe Reru::Next do
     @value.should_receive(:to_s).and_return('here we go')
     @target.to_s.should == 'here we go'
   end
+  
+  it "equals to other instances with the same value" do
+    Reru::Next.new(1).should == Reru::Next.new(1)
+  end
 end
