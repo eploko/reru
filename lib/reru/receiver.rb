@@ -3,54 +3,47 @@ require 'reru/event'
 require 'reru/receiver/validations'
 
 module Reru::Receiver
-
-  def update(source, event)
-    raise ArgumentError, 'Unknown source' unless has_source? source
+  
+  def receive(emitter, event)
+    raise ArgumentError, 'Unknown source' unless has_emitter? emitter
     raise ArgumentError, 'Only Reru::Events can be consumed.' unless event.is_a? Reru::Event
-    shutdown(source) if event.eos?
+    shutdown(emitter) if event.eos?
     return unless sink?
     dispatch(event)
   end
   
 protected
 
-  def sources
-    @sources ||= []    
+  def emitters
+    @emitters ||= []    
   end
 
-  def add_source(source)
-    validate_source(source)
-    self.sources << source
+  def add_emitter(emitter)
+    validate_emitter(emitter)
+    self.emitters << emitter
   end
 
 private
 
-  def has_source?(source)
-    self.sources.include? source
+  def has_emitter?(emitter)
+    self.emitters.include? emitter
   end
 
-  def validate_source(source)
-    raise ArgumentError, 'All of the sources should be Observables.' unless source.is_a? Observable
-    raise ArgumentError, 'Duplicate sources are not allowed.' if has_source? source
+  def validate_emitter(emitter)
+    raise ArgumentError, "A Reru::Emitter expected. Got: #{emitter.class}" unless emitter.is_a?(Reru::Emitter)
+    raise ArgumentError, "Duplicate emitters are not allowed." if has_emitter?(emitter)
   end
   
-  def sink?
-    !!@sink
-  end
-  
-  def subscribe(*sources)
-    sources.each do |source|
-      @sources << source
-      source.add_observer(self)
-    end
-  end
-    
-  def shutdown(source)
-    unsubscribe(source)
-  end
-  
-  def unsubscribe(source)
-    source.delete_observer(self)
-    @sources.delete(source)
-  end
+  # def sink?
+  #   !!@sink
+  # end
+      
+  # def shutdown(source)
+  #   unsubscribe(source)
+  # end
+  # 
+  # def unsubscribe(source)
+  #   source.delete_observer(self)
+  #   @sources.delete(source)
+  # end
 end

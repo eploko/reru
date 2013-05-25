@@ -5,9 +5,9 @@ class Reru::EndPoint
   include Reru::Receiver
   include Reru::Emitter
   
-  def initialize(*upstreams)
-    upstreams.each do |s|
-      add_upstream(s)
+  def initialize(*emitters)
+    emitters.each do |s|
+      add_emitter(s)
     end
   end
   
