@@ -4,14 +4,14 @@ require 'reru/sink/operations'
 require 'reru/stream'
 
 class Reru::Select < Reru::Stream
-  def initialize(source, &block)
-    super(source)
-    @block = block
+  def initialize(sink, method = nil, &block)
+    super(sink)
+    @runner = Reru::UnaryRunner.new(method, &block)
   end
   
   def dispatch(event)
     if event.value?
-      super if @block.call(event.value)
+      super if @runner.run(event.value)
     else
       super
     end
@@ -21,8 +21,8 @@ class Reru::Select < Reru::Stream
     extend ActiveSupport::Concern
 
     included do
-      def select(&block)
-        Reru::Select.new(self, &block)
+      def select(method = nil, &block)
+        Reru::Select.new(self, method, &block)
       end
     end
   end

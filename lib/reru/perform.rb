@@ -1,6 +1,7 @@
 require 'active_support'
 
 require 'reru/sink/operations'
+require 'reru/stream'
 
 class Reru::Perform < Reru::Stream
   def initialize(sink, method = nil, &block)
