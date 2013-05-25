@@ -13,16 +13,16 @@ describe Reru::CoreExt::Enumerable do
       @target = TestTarget.new
     end    
     
-    it "provides the as_stream method" do
-      @target.should respond_to :as_stream
+    it "provides the as_emitter method" do
+      @target.should respond_to :as_emitter
     end  
     
     it "is automatically included into Enumerable" do
       Enumerable.should include Reru::CoreExt::Enumerable
     end
     
-    it "helps convert an Enumerable to a Reru::Stream" do
-      [].as_stream.should be_a Reru::Stream
+    it "helps convert an Enumerable to a Reru::Emitter" do
+      [].as_emitter.should be_a Reru::Emitter
     end
   end
 end

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Reru::Stream do
-  it "is a Reru::Source" do
-    Reru::Stream.ancestors.include?(Reru::Source).should be_true
+  it "is a Reru::EndPoint" do
+    Reru::Stream.ancestors.include?(Reru::EndPoint).should be_true
   end
   
   it "returns self on :to_stream" do

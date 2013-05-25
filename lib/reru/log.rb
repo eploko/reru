@@ -1,14 +1,15 @@
 require 'active_support'
 
+require 'reru/sink/operations'
 require 'reru/stream'
 
 class Reru::Log < Reru::Stream
-  def emit(event)
+  def dispatch(event)
     puts event
     super event
   end
 
-  module SourceMethods
+  module SinkOperations
     extend ActiveSupport::Concern
 
     included do
@@ -17,5 +18,5 @@ class Reru::Log < Reru::Stream
       end
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::Sink::Operations.send :include, SinkOperations
 end

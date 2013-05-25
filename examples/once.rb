@@ -4,4 +4,4 @@ require 'reru'
 
 once = Reru.once(5)
 once.log
-once.flush
+once.start

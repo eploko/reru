@@ -1,13 +1,13 @@
 require 'active_support'
 
-require 'reru/enumerable_stream'
+require 'reru/enumerable_emitter'
 
 module Reru::CoreExt::Enumerable
   extend ActiveSupport::Concern
 
   included do
-    def as_stream
-      Reru::EnumerableStream.new(self)
+    def as_emitter
+      Reru::EnumerableEmitter.new(self)
     end
   end
 end

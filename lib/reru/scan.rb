@@ -2,6 +2,7 @@ require 'active_support'
 
 require 'reru/binary_runner'
 require 'reru/property'
+require 'reru/sink/operations'
 
 class Reru::Scan < Reru::Property
   def initialize(source, initial, method = nil, &block)
@@ -9,7 +10,7 @@ class Reru::Scan < Reru::Property
     @runner = Reru::BinaryRunner.new(method, &block)
   end
   
-  module SourceMethods
+  module SinkOperations
     extend ActiveSupport::Concern
 
     included do
@@ -18,5 +19,5 @@ class Reru::Scan < Reru::Property
       end  
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::Sink::Operations.send :include, SinkOperations
 end

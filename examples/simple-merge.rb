@@ -7,11 +7,11 @@ source_files = [
   'somefile.m',
   'otherfile.h',
   'otherfile.m'
-].as_stream
+].as_emitter
 
 header_files = source_files.select{ |value| value.end_with?('.h') }.map{ |value| "HEADER: #{value}" }
 impl_files = source_files.select{ |value| value.end_with?('.m') }.map{ |value| "IMPL:   #{value}" }
 all_files = header_files.merge(impl_files)
 all_files.log
 
-source_files.flush
+source_files.start

@@ -1,5 +1,6 @@
 require 'active_support'
 
+require 'reru/sink/operations'
 require 'reru/stream'
 
 class Reru::Select < Reru::Stream
@@ -8,7 +9,7 @@ class Reru::Select < Reru::Stream
     @block = block
   end
   
-  def emit(event)
+  def dispatch(event)
     if event.value?
       super if @block.call(event.value)
     else
@@ -16,7 +17,7 @@ class Reru::Select < Reru::Stream
     end
   end
 
-  module SourceMethods
+  module SinkOperations
     extend ActiveSupport::Concern
 
     included do
@@ -25,5 +26,5 @@ class Reru::Select < Reru::Stream
       end
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::Sink::Operations.send :include, SinkOperations
 end

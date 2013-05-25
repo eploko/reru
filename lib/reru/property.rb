@@ -1,7 +1,7 @@
 require 'reru/next'
-require 'reru/source'
+require 'reru/end_point'
 
-class Reru::Property < Reru::Source
+class Reru::Property < Reru::EndPoint
   attr_reader :value
   
   def initialize(source, initial)
@@ -9,7 +9,7 @@ class Reru::Property < Reru::Source
     @value = initial
   end
 
-  def emit(event)
+  def dispatch(event)
     if event.value?
       super Reru::Next.new(step(event.value))
     else

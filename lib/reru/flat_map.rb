@@ -1,6 +1,7 @@
 require 'active_support'
 
 require 'reru/next'
+require 'reru/sink/operations'
 require 'reru/stream'
 
 class Reru::FlatMap < Reru::Stream
@@ -9,7 +10,7 @@ class Reru::FlatMap < Reru::Stream
     @block = block
   end
   
-  def emit(event)
+  def sink(event)
     if event.value?
       mapped = @block.call(event.value)
       if mapped.is_a? Reru::Source
@@ -25,7 +26,7 @@ class Reru::FlatMap < Reru::Stream
     end
   end
 
-  module SourceMethods
+  module SinkOperations
     extend ActiveSupport::Concern
 
     included do
@@ -34,5 +35,5 @@ class Reru::FlatMap < Reru::Stream
       end
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::Sink::Operations.send :include, SinkOperations
 end

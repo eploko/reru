@@ -1,6 +1,6 @@
-require 'reru/source'
+require 'reru/end_point'
 
-class Reru::Stream < Reru::Source
+class Reru::Stream < Reru::EndPoint
   def to_stream
     self
   end
