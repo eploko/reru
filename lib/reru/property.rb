@@ -9,7 +9,7 @@ class Reru::Property < Reru::EndPoint
     @value = initial
   end
 
-  def sink(event)
+  def dispatch(event)
     if event.value?
       super Reru::Next.new(step(event.value))
     else
