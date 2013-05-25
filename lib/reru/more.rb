@@ -1,13 +1,14 @@
 require 'singleton'
 
 module Reru
-  class More
-    include Singleton
-
-    def ==(other)
-      other.class == self.class
-    end
+  More = Struct.new(:more?)
+  
+  def self.more
+    More.new(true)
   end
-  MORE = More::instance.freeze
+  
+  def self.enough
+    More.new(false)
+  end
 end
 
