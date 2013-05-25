@@ -9,7 +9,7 @@ describe Reru::EnumerableEmitter do
     expect { Reru::EnumerableEmitter.new }.to raise_error ArgumentError
   end
 
-  it "raises ArgumentError if initialized w a non-enumerable" do
+  it "raises ArgumentError if initialized w/ a non-enumerable" do
     expect { Reru::EnumerableEmitter.new(1) }.to raise_error ArgumentError
   end
   
@@ -17,14 +17,19 @@ describe Reru::EnumerableEmitter do
     expect { Reru::EnumerableEmitter.new([]) }.to_not raise_error
   end
   
-  context "when run" do
+  context "when started" do
     it "sinks all the enumerable values and an EOS" do
       target = Reru::EnumerableEmitter.new([1, 2, 3])
       target.should_receive(:sink).once.with(Reru::Next.new(1)).ordered
       target.should_receive(:sink).once.with(Reru::Next.new(2)).ordered
       target.should_receive(:sink).once.with(Reru::Next.new(3)).ordered
       target.should_receive(:sink).once.with(Reru::EOS).ordered
-      target.run
+      target.start
+    end
+    
+    it "returns self" do
+      target = Reru::EnumerableEmitter.new([1, 2, 3])
+      target.start.should == target
     end
   end
 end

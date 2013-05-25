@@ -9,7 +9,7 @@ describe Reru::Receiver do
     class TestEndPoint
       include Reru::Receiver
       def protected_add_sink(sink); add_sink(sink); end
-      def protected_activate; activate; end
+      def protected_subscribe; subscribe; end
     end
     
     class TestReceiver
@@ -39,26 +39,15 @@ describe Reru::Receiver do
       @end_point.should respond_to(:receive)
     end
     
-    it "subscribes to sinks on :activate" do
-      @end_point.protected_methods.should include(:activate)
-      @end_point.protected_add_sink(@sink)
+    it "subscribes to the sink when it's added" do
       @sink.should_receive(:add_receiver).once.with(@end_point)
-      @end_point.protected_activate
+      @end_point.protected_add_sink(@sink)
     end
     
-    it "dispatches events when :should_dispatch? return true" do
+    it "dispatches events" do
       @end_point.protected_add_sink(@sink)
       event = Reru::Next.new('here we go')
-      @end_point.stub(:should_dispatch?).and_return(true)
       @end_point.should_receive(:dispatch).with(event)
-      @end_point.receive(@sink, event)
-    end
-
-    it "doesn't dispatch events when :should_dispatch? return false" do
-      @end_point.protected_add_sink(@sink)
-      event = Reru::Next.new('here we go')
-      @end_point.stub(:should_dispatch?).and_return(false)
-      @end_point.should_not_receive(:dispatch)
       @end_point.receive(@sink, event)
     end
   end

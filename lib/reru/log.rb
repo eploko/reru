@@ -4,7 +4,7 @@ require 'reru/sink/operations'
 require 'reru/stream'
 
 class Reru::Log < Reru::Stream
-  def sink(event)
+  def dispatch(event)
     puts event
     super event
   end

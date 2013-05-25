@@ -7,10 +7,7 @@ describe Reru::Sink do
   
   context "when included" do
     class TestSink
-      include Reru::Sink
-      
-      def receiver_added(receiver)
-      end
+      include Reru::Sink      
     end
     
     class TestReceiver
@@ -31,11 +28,6 @@ describe Reru::Sink do
     
     it "can add receivers" do
       expect { @sink.add_receiver(@receiver) }.to_not raise_error
-    end
-
-    it "calls :receiver_added after a new receiver is added" do
-      @sink.should_receive(:receiver_added).once
-      @sink.add_receiver(@receiver)
     end
     
     it "verifies only Reru::Receivers are added as receivers" do

@@ -6,12 +6,12 @@ require 'reru/stream'
 require 'reru/unary_runner'
 
 class Reru::Map < Reru::Stream
-  def initialize(source, method = nil, &block)
-    super(source)
+  def initialize(sink, method = nil, &block)
+    super(sink)
     @runner = Reru::UnaryRunner.new(method, &block)
   end
   
-  def sink(event)
+  def dispatch(event)
     if event.value?
       step = @runner.run(event.value)
       super Reru::Next.new(step) if step

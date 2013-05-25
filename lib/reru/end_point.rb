@@ -16,16 +16,5 @@ protected
   def dispatch(event)
     sink(event)    
   end
-
-  def receiver_added(receiver)
-  end
   
-  def should_dispatch?
-    receivers?
-  end
-      
-  def run ; end
-  
-  def flush ; run ; end
-
 end

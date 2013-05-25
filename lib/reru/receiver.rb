@@ -9,7 +9,7 @@ module Reru::Receiver
     raise ArgumentError, 'Unknown sink' unless has_sink?(sink)
     validate_event(event)
     shutdown(sink) if event.eos?
-    dispatch(event) if should_dispatch?
+    dispatch(event)
   end
   
 protected
@@ -17,15 +17,9 @@ protected
   def add_sink(sink)
     validate_sink(sink)
     raise ArgumentError, "Duplicate sinks are not allowed." if has_sink?(sink)
-    sinks << sink
+    subscribe(sink)
   end
   
-  def activate
-    sinks.each do |e|
-      e.add_receiver(self)
-    end
-  end
-
 private
 
   include Reru::Sink::Validations
@@ -37,6 +31,11 @@ private
 
   def has_sink?(sink)
     sinks.include?(sink)
+  end
+  
+  def subscribe(sink)
+    sinks << sink
+    sink.add_receiver(self)
   end
     
 end

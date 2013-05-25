@@ -8,7 +8,6 @@ module Reru::Sink
   def add_receiver(receiver)
     validate_receiver(receiver)
     receivers << receiver
-    receiver_added(receiver)
   end
 
   def sink(event)
