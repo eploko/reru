@@ -6,7 +6,7 @@ require 'reru'
 # Converting strings to integers, skipping empty values.
 #
 
-strings = ['10', '', '45', '', '', '1'].as_stream
+strings = ['10', '', '45', '', '', '1'].as_emitter
 strings.flat_map{ |str| 
   unless str.empty?
     str.to_i
@@ -14,4 +14,4 @@ strings.flat_map{ |str|
     Reru::never
   end
 }.log
-strings.flush
+strings.start

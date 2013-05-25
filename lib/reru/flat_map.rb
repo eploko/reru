@@ -5,19 +5,19 @@ require 'reru/sink/operations'
 require 'reru/stream'
 
 class Reru::FlatMap < Reru::Stream
-  def initialize(source, &block)
-    super(source)
+  def initialize(sink, &block)
+    super(sink)
     @block = block
   end
   
   def dispatch(event)
     if event.value?
       mapped = @block.call(event.value)
-      if mapped.is_a? Reru::Source
-        mapped.consume{ |x| 
+      if mapped.is_a? Reru::Sink
+        mapped.perform do |x| 
           super Reru::Next.new(x)
-        }
-        mapped.flush
+        end
+        mapped.start
       else
         super Reru::Next.new(mapped)
       end
