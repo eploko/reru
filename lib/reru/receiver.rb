@@ -1,7 +1,7 @@
 require 'observer'
-require 'reru/sink/validations'
 require 'reru/event'
 require 'reru/receiver/validations'
+require 'reru/sink/validations'
 
 module Reru::Receiver
   

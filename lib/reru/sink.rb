@@ -8,7 +8,7 @@ module Reru::Sink
     receiver_added(receiver)
   end
 
-  def emit(event)
+  def sink(event)
     validate_event(event)
     receivers.each do |r|
       r.receive(self, event)

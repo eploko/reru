@@ -39,19 +39,19 @@ describe Reru::Sink do
       expect { @sink.add_receiver(@receiver) }.to_not raise_error
     end
 
-    it "emits events to its receivers" do
+    it "sinks events to its receivers" do
       @sink.add_receiver(@receiver)
       receiver2 = TestReceiver.new
       @sink.add_receiver(receiver2)
       event = Reru::Next.new('here we go')
       @receiver.should_receive(:receive).once.with(@sink, event)
       receiver2.should_receive(:receive).once.with(@sink, event)
-      @sink.emit(event)
+      @sink.sink(event)
     end
     
-    it "allows emitting only of Reru::Events" do
-      expect { @sink.emit('non-event') }.to raise_error ArgumentError
-      expect { @sink.emit(Reru::Next.new('here we go')) }.to_not raise_error
+    it "allows sinking only of Reru::Events" do
+      expect { @sink.sink('non-event') }.to raise_error ArgumentError
+      expect { @sink.sink(Reru::Next.new('here we go')) }.to_not raise_error
     end
   end
 end

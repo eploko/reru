@@ -11,7 +11,6 @@ describe Reru::Sink::Validations do
     before(:each) do
       class TestSink
         include Reru::Sink
-        def emit(event); end
       end
       @sink = TestSink.new
     end
