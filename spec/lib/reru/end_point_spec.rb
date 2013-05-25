@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Reru::EndPoint do
   before(:all) do
-    class TestEmitter
-      include Reru::Emitter
+    class TestSink
+      include Reru::Sink
     end
   end
   before(:each) do
-    @emitter = TestEmitter.new
-    @end_point = Reru::EndPoint.new(@emitter)
+    @sink = TestSink.new
+    @end_point = Reru::EndPoint.new(@sink)
     # @downstream = double('downstream')
     # @downstream.stub(:update)
     # @end_point.add_downstream(@downstream)

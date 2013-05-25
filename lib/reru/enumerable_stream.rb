@@ -10,7 +10,7 @@ class Reru::EnumerableStream < Reru::Stream
   end  
   
   def run
-    @enumerable.each { |value| emit(Reru::Next.new(value)) }
-    emit(Reru::EOS)
+    @enumerable.each { |value| sink(Reru::Next.new(value)) }
+    sink(Reru::EOS)
   end
 end

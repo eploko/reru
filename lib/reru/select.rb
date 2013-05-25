@@ -9,7 +9,7 @@ class Reru::Select < Reru::Stream
     @block = block
   end
   
-  def emit(event)
+  def sink(event)
     if event.value?
       super if @block.call(event.value)
     else

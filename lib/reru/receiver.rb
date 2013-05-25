@@ -1,42 +1,42 @@
 require 'observer'
-require 'reru/emitter/validations'
+require 'reru/sink/validations'
 require 'reru/event'
 require 'reru/receiver/validations'
 
 module Reru::Receiver
   
-  def receive(emitter, event)
-    raise ArgumentError, 'Unknown emitter' unless has_emitter?(emitter)
+  def receive(sink, event)
+    raise ArgumentError, 'Unknown sink' unless has_sink?(sink)
     validate_event(event)
-    shutdown(emitter) if event.eos?
+    shutdown(sink) if event.eos?
     dispatch(event) if should_dispatch?
   end
   
 protected
 
-  def add_emitter(emitter)
-    validate_emitter(emitter)
-    raise ArgumentError, "Duplicate emitters are not allowed." if has_emitter?(emitter)
-    emitters << emitter
+  def add_sink(sink)
+    validate_sink(sink)
+    raise ArgumentError, "Duplicate sinks are not allowed." if has_sink?(sink)
+    sinks << sink
   end
   
   def activate
-    emitters.each do |e|
+    sinks.each do |e|
       e.add_receiver(self)
     end
   end
 
 private
 
-  include Reru::Emitter::Validations
+  include Reru::Sink::Validations
   include Reru::Event::Validations
 
-  def emitters
-    @emitters ||= []    
+  def sinks
+    @sinks ||= []    
   end
 
-  def has_emitter?(emitter)
-    emitters.include?(emitter)
+  def has_sink?(sink)
+    sinks.include?(sink)
   end
     
 end

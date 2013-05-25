@@ -11,7 +11,7 @@ class Reru::Map < Reru::Stream
     @runner = Reru::UnaryRunner.new(method, &block)
   end
   
-  def emit(event)
+  def sink(event)
     if event.value?
       step = @runner.run(event.value)
       super Reru::Next.new(step) if step

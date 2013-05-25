@@ -1,20 +1,20 @@
-require 'reru/emitter'
+require 'reru/sink'
 require 'reru/receiver'
 
 class Reru::EndPoint
   include Reru::Receiver
-  include Reru::Emitter
+  include Reru::Sink
   
-  def initialize(*emitters)
-    emitters.each do |s|
-      add_emitter(s)
+  def initialize(*sinks)
+    sinks.each do |s|
+      add_sink(s)
     end
   end
   
 protected
 
   def dispatch(event)
-    emit(event)    
+    sink(event)    
   end
 
   def receiver_added(receiver)

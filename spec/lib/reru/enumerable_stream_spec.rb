@@ -18,12 +18,12 @@ describe Reru::EnumerableStream do
   end
   
   context "when run" do
-    it "emits all the enumerable values and an EOS" do
+    it "sinks all the enumerable values and an EOS" do
       target = Reru::EnumerableStream.new([1, 2, 3])
-      target.should_receive(:emit).once.with(Reru::Next.new(1)).ordered
-      target.should_receive(:emit).once.with(Reru::Next.new(2)).ordered
-      target.should_receive(:emit).once.with(Reru::Next.new(3)).ordered
-      target.should_receive(:emit).once.with(Reru::EOS).ordered
+      target.should_receive(:sink).once.with(Reru::Next.new(1)).ordered
+      target.should_receive(:sink).once.with(Reru::Next.new(2)).ordered
+      target.should_receive(:sink).once.with(Reru::Next.new(3)).ordered
+      target.should_receive(:sink).once.with(Reru::EOS).ordered
       target.run
     end
   end

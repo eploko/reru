@@ -4,7 +4,7 @@ require 'reru/end_point'
 require 'reru/stream'
 
 class Reru::Log < Reru::Stream
-  def emit(event)
+  def sink(event)
     puts event
     super event
   end

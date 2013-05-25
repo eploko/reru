@@ -3,7 +3,7 @@ module Reru ; end
 require 'reru/binary_runner'
 require 'reru/consume'
 require 'reru/core_ext'
-require 'reru/emitter'
+require 'reru/sink'
 require 'reru/end_point'
 require 'reru/enumerable_stream'
 require 'reru/eos'
