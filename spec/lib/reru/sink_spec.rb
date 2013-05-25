@@ -42,14 +42,21 @@ describe Reru::Sink do
       receiver2 = TestReceiver.new
       @sink.add_receiver(receiver2)
       event = Reru::Next.new('here we go')
-      @receiver.should_receive(:receive).once.with(@sink, event)
-      receiver2.should_receive(:receive).once.with(@sink, event)
+      @receiver.should_receive(:receive).once.with(@sink, event).and_return(Reru.more)
+      receiver2.should_receive(:receive).once.with(@sink, event).and_return(Reru.more)
       @sink.sink(event)
     end
     
     it "allows sinking only of Reru::Events" do
       expect { @sink.sink('non-event') }.to raise_error ArgumentError
       expect { @sink.sink(Reru::Next.new('here we go')) }.to_not raise_error
+    end
+    
+    it "when sinking raises an error if a receiver doesn't return Reru::More" do
+      @sink.add_receiver(@receiver)
+      @receiver.stub(:receive).and_return(nil)
+      event = Reru::Next.new('here we go')
+      expect { @sink.sink(event) }.to raise_error TypeError
     end
   end
 end
