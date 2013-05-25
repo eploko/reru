@@ -5,8 +5,8 @@ require 'reru/property'
 require 'reru/sink/operations'
 
 class Reru::Scan < Reru::Property
-  def initialize(source, initial, method = nil, &block)
-    super(source, initial)
+  def initialize(sink, initial, method = nil, &block)
+    super(sink, initial)
     @runner = Reru::BinaryRunner.new(method, &block)
   end
   

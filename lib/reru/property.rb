@@ -2,8 +2,6 @@ require 'reru/next'
 require 'reru/end_point'
 
 class Reru::Property < Reru::EndPoint
-  attr_reader :value
-  
   def initialize(source, initial)
     super(source)
     @value = initial
