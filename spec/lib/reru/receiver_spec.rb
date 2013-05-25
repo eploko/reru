@@ -54,13 +54,6 @@ describe Reru::Receiver do
   #   
   # end
   # 
-  # it "accepts only observable targets" do
-  #   expect { TestSource.new(@non_observable_target_a) }.to raise_error ArgumentError
-  #   expect { TestSource.new(@observable_target_a) }.to_not raise_error
-  #   expect { TestSource.new(@non_observable_target_a, @non_observable_target_b) }.to raise_error ArgumentError
-  #   expect { TestSource.new(@observable_target_a, @observable_target_b) }.to_not raise_error
-  # end
-  # 
   # it "subscribes to sources only when someone would like to consume dispatched events" do
   #   @observable_target_a.should_not_receive(:add_observer)
   #   @observable_target_b.should_not_receive(:add_observer)

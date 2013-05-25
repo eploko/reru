@@ -11,7 +11,6 @@ describe Reru::Receiver::Validations do
     before(:each) do
       class TestReceiver
         include Reru::Receiver
-        def receive(emitter, event); end
       end
       @receiver = TestReceiver.new
     end
@@ -23,7 +22,6 @@ describe Reru::Receiver::Validations do
 
     it "verifies a receiver implements :receive" do
       class NonConformingTestReceiver
-        include Reru::Receiver
       end
       expect { validate_receiver(NonConformingTestReceiver.new) }.to raise_error ArgumentError
       expect { validate_receiver(@receiver) }.to_not raise_error
