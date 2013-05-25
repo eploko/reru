@@ -1,6 +1,6 @@
-require 'reru/enumerable_stream'
+require 'reru/enumerable_emitter'
 
-class Reru::Never < Reru::EnumerableStream
+class Reru::Never < Reru::EnumerableEmitter
   def initialize
     super([])
   end
