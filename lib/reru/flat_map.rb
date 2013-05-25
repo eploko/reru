@@ -10,7 +10,7 @@ class Reru::FlatMap < Reru::Stream
     @block = block
   end
   
-  def sink(event)
+  def dispatch(event)
     if event.value?
       mapped = @block.call(event.value)
       if mapped.is_a? Reru::Source

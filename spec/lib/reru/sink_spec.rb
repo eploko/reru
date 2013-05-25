@@ -12,9 +12,6 @@ describe Reru::Sink do
     
     class TestReceiver
       include Reru::Receiver
-      
-      def receive(sink, event)
-      end
     end
 
     before(:each) do

@@ -15,6 +15,5 @@ protected
 
   def dispatch(event)
     sink(event)    
-  end
-  
+  end  
 end
