@@ -2,8 +2,6 @@
 
 require 'reru'
 
-strs = ['here we go', 'Here we go Again', 'woohoo'].as_stream
+strs = ['here we go', 'Here we go Again', 'woohoo'].as_emitter
 strs.map(:upcase).log
 strs.start
-
-
