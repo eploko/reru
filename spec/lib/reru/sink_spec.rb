@@ -25,6 +25,10 @@ describe Reru::Sink do
       @receiver = TestReceiver.new
     end
     
+    it "includes Reru::Sink::Operations (map, select, etc.)" do
+      TestSink.should include(Reru::Sink::Operations)
+    end
+    
     it "can add receivers" do
       expect { @sink.add_receiver(@receiver) }.to_not raise_error
     end

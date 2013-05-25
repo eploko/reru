@@ -1,7 +1,10 @@
 require 'reru/event/validations'
 require 'reru/receiver/validations'
+require 'reru/sink/operations'
 
 module Reru::Sink
+  include Reru::Sink::Operations
+  
   def add_receiver(receiver)
     validate_receiver(receiver)
     receivers << receiver

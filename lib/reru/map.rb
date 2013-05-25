@@ -1,7 +1,7 @@
 require 'active_support'
 
-require 'reru/end_point'
 require 'reru/next'
+require 'reru/sink/operations'
 require 'reru/stream'
 require 'reru/unary_runner'
 
@@ -20,7 +20,7 @@ class Reru::Map < Reru::Stream
     end
   end
 
-  module SourceMethods
+  module SinkOperations
     extend ActiveSupport::Concern
 
     included do
@@ -29,5 +29,5 @@ class Reru::Map < Reru::Stream
       end
     end
   end
-  Reru::EndPoint.send :include, SourceMethods
+  Reru::Sink::Operations.send :include, SinkOperations
 end
