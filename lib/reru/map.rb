@@ -1,5 +1,6 @@
 require 'active_support'
 
+require 'reru/end_point'
 require 'reru/next'
 require 'reru/stream'
 require 'reru/unary_runner'
@@ -28,5 +29,5 @@ class Reru::Map < Reru::Stream
       end
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::EndPoint.send :include, SourceMethods
 end

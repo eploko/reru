@@ -1,6 +1,6 @@
 require 'active_support'
 
-require 'reru/source'
+require 'reru/end_point'
 
 class Reru::Consume
   def initialize(source, &block)
@@ -22,5 +22,5 @@ class Reru::Consume
       end
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::EndPoint.send :include, SourceMethods
 end

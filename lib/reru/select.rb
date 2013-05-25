@@ -1,5 +1,6 @@
 require 'active_support'
 
+require 'reru/end_point'
 require 'reru/stream'
 
 class Reru::Select < Reru::Stream
@@ -25,5 +26,5 @@ class Reru::Select < Reru::Stream
       end
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::EndPoint.send :include, SourceMethods
 end

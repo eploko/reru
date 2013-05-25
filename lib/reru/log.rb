@@ -1,5 +1,6 @@
 require 'active_support'
 
+require 'reru/end_point'
 require 'reru/stream'
 
 class Reru::Log < Reru::Stream
@@ -17,5 +18,5 @@ class Reru::Log < Reru::Stream
       end
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::EndPoint.send :include, SourceMethods
 end

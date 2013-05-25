@@ -1,6 +1,7 @@
 require 'active_support'
 
 require 'reru/binary_runner'
+require 'reru/end_point'
 require 'reru/property'
 
 class Reru::Scan < Reru::Property
@@ -18,5 +19,5 @@ class Reru::Scan < Reru::Property
       end  
     end
   end
-  Reru::Source.send :include, SourceMethods
+  Reru::EndPoint.send :include, SourceMethods
 end
