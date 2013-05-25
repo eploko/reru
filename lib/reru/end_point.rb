@@ -16,6 +16,9 @@ class Reru::EndPoint
   end
 
 protected
+
+  def receiver_added(receiver)
+  end
       
   def run ; end
   

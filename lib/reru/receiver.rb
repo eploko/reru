@@ -20,6 +20,12 @@ protected
     raise ArgumentError, "Duplicate emitters are not allowed." if has_emitter?(emitter)
     emitters << emitter
   end
+  
+  def activate
+    emitters.each do |e|
+      e.add_receiver(self)
+    end
+  end
 
 private
 
@@ -33,17 +39,5 @@ private
   def has_emitter?(emitter)
     emitters.include?(emitter)
   end
-  
-  # def sink?
-  #   !!@sink
-  # end
-      
-  # def shutdown(source)
-  #   unsubscribe(source)
-  # end
-  # 
-  # def unsubscribe(source)
-  #   source.delete_observer(self)
-  #   @sources.delete(source)
-  # end
+    
 end

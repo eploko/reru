@@ -19,13 +19,5 @@ describe Reru::Receiver::Validations do
       expect { validate_receiver('non-receiver') }.to raise_error ArgumentError
       expect { validate_receiver(@receiver) }.to_not raise_error
     end
-
-    it "verifies a receiver implements :receive" do
-      class NonConformingTestReceiver
-      end
-      expect { validate_receiver(NonConformingTestReceiver.new) }.to raise_error ArgumentError
-      expect { validate_receiver(@receiver) }.to_not raise_error
-    end    
-  end
-  
+  end  
 end

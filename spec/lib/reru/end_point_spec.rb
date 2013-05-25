@@ -1,20 +1,25 @@
 require 'spec_helper'
 
 describe Reru::EndPoint do
+  before(:all) do
+    class TestEmitter
+      include Reru::Emitter
+    end
+  end
   before(:each) do
-    @upstream = Reru::EndPoint.new
-    @end_point = Reru::EndPoint.new(@upstream)
-    @downstream = double('downstream')
-    @downstream.stub(:update)
-    @end_point.add_downstream(@downstream)
-    @event = Reru::Next.new('here we go')    
-    @terminator = Reru::Consume.new(@downstream) { |v| 
-      # nop 
-    }
+    @emitter = TestEmitter.new
+    @end_point = Reru::EndPoint.new(@emitter)
+    # @downstream = double('downstream')
+    # @downstream.stub(:update)
+    # @end_point.add_downstream(@downstream)
+    # @event = Reru::Next.new('here we go')    
+    # @terminator = Reru::Consume.new(@downstream) { |v| 
+    #   # nop 
+    # }
   end
 
   it "responds to :receiver_added" do
-    @end_point.should respond_to(:receiver_added)
+    @end_point.protected_methods.should include(:receiver_added)
   end
   
   # context "on inbound events" do
