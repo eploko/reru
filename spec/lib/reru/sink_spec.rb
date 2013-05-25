@@ -30,6 +30,11 @@ describe Reru::Sink do
       expect { @sink.add_receiver(@receiver) }.to_not raise_error
     end
     
+    it "can remove receivers" do
+      expect { @sink.add_receiver(@receiver) }.to_not raise_error
+      expect { @sink.remove_receiver(@receiver) }.to_not raise_error
+    end
+    
     it "verifies only Reru::Receivers are added as receivers" do
       expect { @sink.add_receiver('non-receiver') }.to raise_error ArgumentError
       expect { @sink.add_receiver(@receiver) }.to_not raise_error

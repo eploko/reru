@@ -9,6 +9,11 @@ module Reru::Sink
     validate_receiver(receiver)
     receivers << receiver
   end
+  
+  def remove_receiver(receiver)
+    validate_receiver(receiver)
+    receivers.delete(receiver)
+  end
 
   def sink(event)
     validate_event(event)

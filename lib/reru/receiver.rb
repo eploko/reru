@@ -8,7 +8,7 @@ module Reru::Receiver
   def receive(sink, event)
     raise ArgumentError, 'Unknown sink' unless has_sink?(sink)
     validate_event(event)
-    shutdown(sink) if event.eos?
+    unsubscribe(sink) if event.eos?
     dispatch(event)
   end
   
@@ -37,5 +37,9 @@ private
     sinks << sink
     sink.add_receiver(self)
   end
-    
+
+  def unsubscribe(sink)
+    sinks.delete(sink)
+    sink.remove_receiver(self)
+  end    
 end

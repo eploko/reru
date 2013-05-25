@@ -10,6 +10,8 @@ describe Reru::Receiver do
       include Reru::Receiver
       def protected_add_sink(sink); add_sink(sink); end
       def protected_subscribe; subscribe; end
+      def dispatch(event)
+      end
     end
     
     class TestReceiver
@@ -49,6 +51,12 @@ describe Reru::Receiver do
       event = Reru::Next.new('here we go')
       @end_point.should_receive(:dispatch).with(event)
       @end_point.receive(@sink, event)
+    end
+    
+    it "unsubscribes from the sink if it gets an EOS" do
+      @end_point.protected_add_sink(@sink)
+      @sink.should_receive(:remove_receiver).once.with(@end_point)
+      @end_point.receive(@sink, Reru::EOS)
     end
   end
 end
