@@ -24,6 +24,7 @@ class Reru::FlatMap < Reru::Stream
     else
       super
     end
+    Reru.more
   end
 
   module SinkOperations

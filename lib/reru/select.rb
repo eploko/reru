@@ -15,6 +15,7 @@ class Reru::Select < Reru::Stream
     else
       super
     end
+    Reru.more
   end
 
   module SinkOperations

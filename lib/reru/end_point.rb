@@ -1,3 +1,4 @@
+require 'reru/more'
 require 'reru/sink'
 require 'reru/receiver'
 
@@ -14,6 +15,7 @@ class Reru::EndPoint
 protected
 
   def dispatch(event)
-    sink(event)    
+    sink(event)
+    Reru.more
   end  
 end

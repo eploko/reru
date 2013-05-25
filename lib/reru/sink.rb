@@ -20,7 +20,8 @@ module Reru::Sink
     validate_event(event)
     receivers.each do |r|
       a = r.receive(self, event)
-      validate_answer(a)
+      validate_answer(r, a)
+      a
     end
   end
   
@@ -33,9 +34,9 @@ private
     @receivers ||= []
   end
   
-  def validate_answer(a)
+  def validate_answer(receiver, a)
     unless a.is_a?(Reru::More)
-      raise TypeError, "Invalid answer class from a receiver: #{a.class}. Should be either Reru.more or Reru.enough."
+      raise TypeError, "#{receiver.class} returned and invalid answer of class: #{a.class}. A Reru::More expected."
     end
   end
   
