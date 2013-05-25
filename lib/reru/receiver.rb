@@ -9,8 +9,7 @@ module Reru::Receiver
     raise ArgumentError, 'Unknown emitter' unless has_emitter?(emitter)
     validate_event(event)
     shutdown(emitter) if event.eos?
-    return unless sink?
-    dispatch(event)
+    dispatch(event) if should_dispatch?
   end
   
 protected

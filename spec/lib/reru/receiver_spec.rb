@@ -12,9 +12,14 @@ describe Reru::Receiver do
       def protected_activate; activate; end
     end
     
+    class TestReceiver
+      include Reru::Receiver
+    end
+    
     before(:each) do
       @emitter = TestEmitter.new
       @end_point = TestEndPoint.new
+      @receiver = TestReceiver.new
     end
     
     it "adds emitters" do
@@ -39,6 +44,22 @@ describe Reru::Receiver do
       @end_point.protected_add_emitter(@emitter)
       @emitter.should_receive(:add_receiver).once.with(@end_point)
       @end_point.protected_activate
+    end
+    
+    it "dispatches events when :should_dispatch? return true" do
+      @end_point.protected_add_emitter(@emitter)
+      event = Reru::Next.new('here we go')
+      @end_point.stub(:should_dispatch?).and_return(true)
+      @end_point.should_receive(:dispatch).with(event)
+      @end_point.receive(@emitter, event)
+    end
+
+    it "doesn't dispatch events when :should_dispatch? return false" do
+      @end_point.protected_add_emitter(@emitter)
+      event = Reru::Next.new('here we go')
+      @end_point.stub(:should_dispatch?).and_return(false)
+      @end_point.should_not_receive(:dispatch)
+      @end_point.receive(@emitter, event)
     end
   end
 end

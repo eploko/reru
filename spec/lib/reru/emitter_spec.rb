@@ -39,14 +39,6 @@ describe Reru::Emitter do
       expect { @emitter.add_receiver(@receiver) }.to_not raise_error
     end
 
-    it "verifies a receiver implements :receive" do
-      class NonConformingTestReceiver
-        include Reru::Receiver
-      end
-      expect { @emitter.add_receiver(NonConformingTestReceiver.new) }.to raise_error ArgumentError
-      expect { @emitter.add_receiver(@receiver) }.to_not raise_error
-    end
-    
     it "emits events to its receivers" do
       @emitter.add_receiver(@receiver)
       receiver2 = TestReceiver.new

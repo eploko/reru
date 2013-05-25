@@ -11,13 +11,17 @@ class Reru::EndPoint
     end
   end
   
+protected
+
   def dispatch(event)
     emit(event)    
   end
 
-protected
-
   def receiver_added(receiver)
+  end
+  
+  def should_dispatch?
+    receivers?
   end
       
   def run ; end
