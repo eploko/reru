@@ -9,10 +9,9 @@ class Reru::EnumerableEmitter < Reru::Emitter
     @enumerable = enumerable
   end  
   
-  def start
-    super
+  def tick
     @enumerable.each { |value| sink(Reru::Next.new(value)) }
     sink(Reru::EOS)
-    self
+    super
   end
 end

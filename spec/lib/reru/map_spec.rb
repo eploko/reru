@@ -5,7 +5,7 @@ describe Reru::Map do
     emitter = ['a', 'x'].as_emitter
     result = []
     emitter.map{ |x| x.upcase }.perform{ |x| result << x }
-    emitter.start
+    Reru.run
     result.should == ['A', 'X']
   end
 
@@ -13,7 +13,7 @@ describe Reru::Map do
     emitter = ['b', 'y'].as_emitter
     result = []
     emitter.map(:upcase).perform{ |x| result << x }
-    emitter.start
+    Reru.run
     result.should == ['B', 'Y']
   end
 end

@@ -12,7 +12,7 @@ describe Reru::EndPoint do
     end_point = Reru::EndPoint.new(sink)
     event = Reru::Next.new(1)
     downstream = Reru::EndPoint.new(end_point)
-    downstream.should_receive(:dispatch).with(event).once
+    downstream.should_receive(:dispatch).once.with(event).and_return(Reru.more)
     sink.sink(event)
   end
 end

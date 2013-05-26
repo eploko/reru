@@ -15,6 +15,7 @@ class Reru::Select < Reru::Stream
     else
       super
     end
+    Reru.more
   end
 
   module SinkOperations
@@ -23,6 +24,10 @@ class Reru::Select < Reru::Stream
     included do
       def select(method = nil, &block)
         Reru::Select.new(self, method, &block)
+      end
+      
+      def on_eos(&block)
+        Reru::Perform.new(self, &block)
       end
     end
   end

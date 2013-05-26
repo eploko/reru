@@ -5,7 +5,7 @@ describe Reru::Never do
     xs = []
     never = Reru.never
     never.perform { |x| xs << 'y' }
-    never.start
+    Reru.run
     xs.should == []
   end
 end

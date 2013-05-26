@@ -17,19 +17,19 @@ describe Reru::EnumerableEmitter do
     expect { Reru::EnumerableEmitter.new([]) }.to_not raise_error
   end
   
-  context "when started" do
+  context "when ticked" do
     it "sinks all the enumerable values and an EOS" do
       target = Reru::EnumerableEmitter.new([1, 2, 3])
       target.should_receive(:sink).once.with(Reru::Next.new(1)).ordered
       target.should_receive(:sink).once.with(Reru::Next.new(2)).ordered
       target.should_receive(:sink).once.with(Reru::Next.new(3)).ordered
       target.should_receive(:sink).once.with(Reru::EOS).ordered
-      target.start
+      target.tick
     end
     
-    it "returns self" do
+    it "returns Reru.enough on tick" do
       target = Reru::EnumerableEmitter.new([1, 2, 3])
-      target.start.should == target
+      target.tick.should == Reru.enough
     end
   end
 end

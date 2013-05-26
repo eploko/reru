@@ -8,22 +8,28 @@ class Reru::FlatMap < Reru::Stream
   def initialize(sink, &block)
     super(sink)
     @block = block
+    @pending_emitters = []
   end
   
   def dispatch(event)
     if event.value?
       mapped = @block.call(event.value)
-      if mapped.is_a? Reru::Sink
+      if mapped.is_a? Reru::Emitter
+        @pending_emitters << mapped
         mapped.perform do |x| 
           super Reru::Next.new(x)
+        end.on_eos do 
+          @pending_emitters.delete(mapped)
+          dispatch(Reru::EOS) if @pending_emitters.size == 0
         end
-        mapped.start
       else
         super Reru::Next.new(mapped)
       end
     else
-      super
+      raise "Unsupported event: #{event}" unless event.eos?
+      super if @pending_emitters.size == 0
     end
+    Reru.more
   end
 
   module SinkOperations
