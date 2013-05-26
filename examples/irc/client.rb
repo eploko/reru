@@ -5,6 +5,8 @@ unless ARGV.length >= 1
   exit 1
 end
 
+$LOAD_PATH << File.expand_path('..', __FILE__)
+
 require 'reru'
 require 'irc_event'
 require 'socket'
