@@ -9,7 +9,7 @@ class Reru::IO::Reader < Reru::Emitter
   
   def tick
     sink(Reru::EOS) and return Reru.enough if @should_stop
-    process_next_line
+    process_next_chunk
   end
   
   def stop
@@ -18,14 +18,16 @@ class Reru::IO::Reader < Reru::Emitter
   
 private
     
-  def process_next_line
-    if line = @io.gets
+  def process_next_chunk
+    @io.read_nonblock(1_000_000).each_line do |line|
       sink(Reru::Next.new(line))
-      Reru.more
-    else 
-      sink(Reru::EOS)
-      Reru.enough
     end
+    Reru.more
+  rescue IO::WaitReadable
+    Reru.more
+  rescue
+    sink(Reru::EOS)
+    Reru.enough
   end
   
   module ReruExt
