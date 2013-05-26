@@ -26,6 +26,10 @@ module Reru::Sink
       a
     end
   end
+
+  def merge(right)
+    Reru::Stream.new(self, right)
+  end
   
 private
 

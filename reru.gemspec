@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'terminal-notifier-guard'
   spec.add_development_dependency 'travis-lint'
+  spec.add_development_dependency 'colored'
 
   spec.add_runtime_dependency 'activesupport', '~> 4.0.0rc1'
 end
