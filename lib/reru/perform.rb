@@ -28,7 +28,7 @@ class Reru::Perform < Reru::Stream
         Reru::Perform.new(self) { |x| puts x }
       end
 
-      def write(io)
+      def write(io = $stdout)
         Reru::Perform.new(self) { |x| io.write(x) }
       end
     end
