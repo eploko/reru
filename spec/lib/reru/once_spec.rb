@@ -5,7 +5,7 @@ describe Reru::Once do
     xs = []
     once = Reru.once('y')
     once.perform { |x| xs << x }
-    once.start
+    Reru.run
     xs.should == ['y']
   end
 end

@@ -25,6 +25,10 @@ class Reru::Select < Reru::Stream
       def select(method = nil, &block)
         Reru::Select.new(self, method, &block)
       end
+      
+      def on_eos(&block)
+        Reru::Perform.new(self, &block)
+      end
     end
   end
   Reru::Sink::Operations.send :include, SinkOperations

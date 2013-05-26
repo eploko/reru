@@ -13,7 +13,11 @@ describe Reru::FlatMap do
     }.perform{ |x|
       result << x
     }
-    strings.start
-    result.should == [10, 'x', 45, 'x', 'x', 1]
+    Reru.run
+    result.size.should == 6
+    result.count(10).should == 1
+    result.count(45).should == 1
+    result.count(1).should == 1
+    result.count('x').should == 3
   end
 end

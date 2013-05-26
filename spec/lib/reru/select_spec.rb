@@ -5,7 +5,7 @@ describe Reru::Select do
     emitter = ['a', '', '', 'b'].as_emitter
     result = []
     emitter.select{ |x| !x.empty? }.perform{ |x| result << x }
-    emitter.start
+    Reru.run
     result.should == ['a', 'b']
   end  
   
@@ -13,7 +13,7 @@ describe Reru::Select do
     emitter = ['a', '', '', 'b'].as_emitter
     result = []
     emitter.select(:empty?).perform{ |x| result << x }
-    emitter.start
+    Reru.run
     result.should == ['', '']
   end  
 end

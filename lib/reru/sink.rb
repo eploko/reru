@@ -6,6 +6,8 @@ require 'reru/sink/operations'
 module Reru::Sink
   include Reru::Sink::Operations
   
+  attr_accessor :run_loop
+  
   def add_receiver(receiver)
     validate_receiver(receiver)
     receivers << receiver

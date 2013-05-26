@@ -58,5 +58,11 @@ describe Reru::Sink do
       event = Reru::Next.new('here we go')
       expect { @sink.sink(event) }.to raise_error TypeError
     end
+    
+    it "has the r/w :run_loop property" do
+      rl = 'here we go'
+      expect { @sink.run_loop = rl }.to_not raise_error
+      @sink.run_loop.should === rl
+    end
   end
 end

@@ -14,7 +14,7 @@ describe Reru::Scan do
     }.perform { |sum| 
       sums << sum
     }
-    @emitter.start
+    Reru.run
     bs.should == [3, 8]
     sums.should == [5, 13]
   end
@@ -25,7 +25,7 @@ describe Reru::Scan do
     @emitter.scan(2, :*).perform { |sum| 
       sums << sum
     }
-    @emitter.start
+    Reru.run
     sums.should == [6, 48]
   end
 end

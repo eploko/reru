@@ -11,7 +11,7 @@ describe Reru::Perform do
     }.perform{ |x| 
       s2 << x 
     }
-    emitter.start
+    Reru.run
     s1.should == ['A', 'B']
     s2.should == initial
   end
@@ -23,7 +23,7 @@ describe Reru::Perform do
     begin
       orig_stdout = $stdout
       $stdout = file
-      emitter.start
+      Reru.run
     ensure
       $stdout = orig_stdout
     end
