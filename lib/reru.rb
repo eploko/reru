@@ -1,6 +1,7 @@
 module Reru ; end
 
 require 'reru/binary_runner'
+require 'reru/bus'
 require 'reru/core_ext'
 require 'reru/emitter'
 require 'reru/end_point'

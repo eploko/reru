@@ -17,19 +17,19 @@ class Reru::Select < Reru::Stream
     end
     Reru.more
   end
+end
 
-  module SinkOperations
-    extend ActiveSupport::Concern
+module Reru::Select::SinkOperations
+  extend ActiveSupport::Concern
 
-    included do
-      def select(method = nil, &block)
-        Reru::Select.new(self, method, &block)
-      end
-      
-      def on_eos(&block)
-        Reru::Perform.new(self, &block)
-      end
+  included do
+    def select(method = nil, &block)
+      Reru::Select.new(self, method, &block)
+    end
+          
+    def compact
+      Reru::Select.new(self) { |x| not x.nil? }
     end
   end
-  Reru::Sink::Operations.send :include, SinkOperations
 end
+Reru::Sink::Operations.send :include, Reru::Select::SinkOperations

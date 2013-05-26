@@ -15,7 +15,7 @@ require 'colored'
 def main
   host = ARGV.fetch(0)
   port = ARGV.fetch(1) { "6667"     }
-  nick = ARGV.fetch(2) { "reru" }
+  nick = ARGV.fetch(2) { "examplenick" }
 
   socket = TCPSocket.new(host, port)
 
