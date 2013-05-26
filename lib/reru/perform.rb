@@ -27,6 +27,10 @@ class Reru::Perform < Reru::Stream
       def log
         Reru::Perform.new(self) { |x| puts x }
       end
+
+      def write(io)
+        Reru::Perform.new(self) { |x| io.write(x) }
+      end
     end
   end
   Reru::Sink::Operations.send :include, SinkOperations
