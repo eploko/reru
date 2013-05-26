@@ -1,7 +1,7 @@
 require 'singleton'
 
 module Reru
-  More = Struct.new(:more?)
+  More = Struct.new(:is_more)
   
   def self.more
     More.new(true)

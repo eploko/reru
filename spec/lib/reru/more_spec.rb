@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Reru::More do
   context "when returned from Reru.more" do
-    it "returns true on :more?" do
-      Reru.more.more?.should be_true
+    it "returns true on :is_more" do
+      Reru.more.is_more.should be_true
     end
 
     it "equals to other instances" do
@@ -16,8 +16,8 @@ describe Reru::More do
   end
 
   context "when returned from Reru.enough" do
-    it "returns false on :more?" do
-      Reru.enough.more?.should be_false
+    it "returns false on :is_more" do
+      Reru.enough.is_more.should be_false
     end
 
     it "equals to other instances" do

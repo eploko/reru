@@ -15,6 +15,7 @@ class Reru::EndPoint
 protected
 
   def dispatch(event)
+    return Reru.enough if event.eos? && sinks?
     sink(event)
     Reru.more
   end  
