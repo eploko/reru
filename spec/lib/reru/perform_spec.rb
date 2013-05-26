@@ -28,7 +28,7 @@ describe Reru::Perform do
       $stdout = orig_stdout
     end
     file.rewind
-    file.read.should == "hello\nworld\n"
+    file.read.should == "\"hello\"\n\"world\"\n"
     file.close        
   end
   

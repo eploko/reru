@@ -25,7 +25,8 @@ class Reru::Perform < Reru::Stream
       end
       
       def log(prefix = '')
-        Reru::Perform.new(self) { |x| puts "#{prefix}#{x}" }
+        prefix = prefix + ' ' unless prefix.empty?
+        Reru::Perform.new(self) { |x| puts "#{prefix}#{x.inspect}" }
       end
 
       def write(io = $stdout)
