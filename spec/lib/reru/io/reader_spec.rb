@@ -12,7 +12,7 @@ describe Reru::IO::Reader do
   end
   
   it "stops reading if told so" do
-    StringIO.open("hello world\nhere we go!") do |input|
+    StringIO.open('x' * 2_000_000) do |input|
       reader = Reru.read(input)
       xs = []
       reader.perform { |x| 
@@ -20,7 +20,7 @@ describe Reru::IO::Reader do
         reader.stop
       }
       Reru.run
-      xs.should == ["hello world\n"]
+      xs.should == ['x' * 1_000_000]
     end
   end
 end
