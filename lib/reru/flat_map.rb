@@ -11,27 +11,49 @@ class Reru::FlatMap < Reru::Stream
     @pending_emitters = []
   end
   
-  def dispatch(event)
-    if event.value?
-      mapped = @block.call(event.value)
-      if mapped.is_a? Reru::Emitter
-        @pending_emitters << mapped
-        mapped.perform do |x| 
-          super Reru::Next.new(x)
-        end.on_eos do 
-          @pending_emitters.delete(mapped)
-          dispatch(Reru::EOS) if @pending_emitters.size == 0
-        end
-      else
-        super Reru::Next.new(mapped)
-      end
+  def dispatch(event, passthru = false)
+    unless passthru
+      process(event)
     else
-      raise "Unsupported event: #{event}" unless event.eos?
-      super if @pending_emitters.size == 0
+      super(event)
     end
-    Reru.more
   end
 
+private
+
+  def process(event)
+    if event.value?
+      map_value(event.value)
+    else
+      raise "Unsupported event: #{event}" unless event.eos?
+      if @pending_emitters.size == 0
+        dispatch(event, true)
+      else
+        Reru.more
+      end
+    end
+  end
+  
+  def map_value(value)
+    mapped = @block.call(value)
+    if mapped.is_a? Reru::Emitter
+      flat(mapped)
+      Reru.more
+    else
+      dispatch(Reru::Next.new(mapped), true)
+    end
+  end
+  
+  def flat(mapped)
+    @pending_emitters << mapped
+    mapped.perform do |x| 
+      dispatch(Reru::Next.new(x), true)
+    end.on_eos do 
+      @pending_emitters.delete(mapped)
+      dispatch(Reru::EOS) if @pending_emitters.size == 0
+    end
+  end
+  
   module SinkOperations
     extend ActiveSupport::Concern
 

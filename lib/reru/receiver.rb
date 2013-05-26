@@ -20,6 +20,10 @@ protected
     subscribe(sink)
   end
   
+  def sinks?
+    sinks.size > 0
+  end
+  
 private
 
   include Reru::Sink::Validations
