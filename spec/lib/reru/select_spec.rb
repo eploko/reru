@@ -16,4 +16,11 @@ describe Reru::Select do
     Reru.run
     result.should == ['', '']
   end  
+  
+  it "compacts the stream" do
+    xs = []
+    emitter = ['a', nil, 'b'].as_emitter.compact.perform { |x| xs << x }
+    Reru.run
+    xs.should == ['a', 'b']
+  end
 end

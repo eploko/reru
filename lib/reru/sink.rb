@@ -20,11 +20,20 @@ module Reru::Sink
 
   def sink(event)
     validate_event(event)
+    perform_eos_handlers if event.eos?
     receivers.each do |r|
       a = r.receive(self, event)
       validate_answer(r, a)
       a
     end
+  end
+
+  def merge(right)
+    Reru::Stream.new(self, right)
+  end
+  
+  def on_eos(&block)
+    eos_handlers << block
   end
   
 private
@@ -34,6 +43,14 @@ private
     
   def receivers
     @receivers ||= []
+  end
+  
+  def eos_handlers
+    @eos_handlers ||= []
+  end
+  
+  def perform_eos_handlers
+    eos_handlers.each { |b| b.call }
   end
   
   def validate_answer(receiver, a)

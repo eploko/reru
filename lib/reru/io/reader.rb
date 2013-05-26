@@ -8,8 +8,12 @@ class Reru::IO::Reader < Reru::Emitter
   end
   
   def tick
-    sink(Reru::EOS) and return Reru.enough if @should_stop
-    process_next_chunk
+    if @should_stop
+      sink(Reru::EOS)
+      Reru.enough 
+    else
+      process_next_chunk
+    end
   end
   
   def stop
