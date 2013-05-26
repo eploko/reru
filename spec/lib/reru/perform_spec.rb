@@ -31,4 +31,14 @@ describe Reru::Perform do
     file.read.should == "hello\nworld\n"
     file.close        
   end
+  
+  it "writes values" do
+    file = StringIO.new('')
+    emitter = ['hello ', 'world', "\n"].as_emitter
+    emitter.write(file)
+    Reru.run
+    file.rewind
+    file.read.should == "hello world\n"
+    file.close        
+  end
 end

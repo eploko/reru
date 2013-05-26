@@ -13,7 +13,7 @@ class Reru::RunLoop
       ticking_emitters.each do |e|
         a = e.tick
         validate_answer(a)
-        add_emitter(emitter, false) if a == Reru.more
+        add_emitter(e, false) if a == Reru.more
       end
     end
   end

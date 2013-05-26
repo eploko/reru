@@ -5,8 +5,10 @@ $LOAD_PATH << File.expand_path('../lib', __FILE__)
 
 require 'reru'
 
-Reru::IO::Reader.new($stdin).map { |line| 
-  "Haha! You said “#{line.chomp}”." 
+reader = Reru::IO::Reader.new($stdin)
+reader.map { |line| 
+  "> Haha! You said “#{line.chomp}”.\n" 
 }.write($stdout)
+reader.select { |line| line.chomp == 'quit' }.perform { reader.stop }
 
 Reru::run
