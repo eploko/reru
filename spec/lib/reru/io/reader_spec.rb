@@ -13,7 +13,7 @@ describe Reru::IO::Reader do
   
   it "stops reading if told so" do
     StringIO.open("hello world\nhere we go!") do |input|
-      reader = Reru::IO::Reader.new(input)
+      reader = Reru.read(input)
       xs = []
       reader.perform { |x| 
         xs << x 

@@ -28,4 +28,10 @@ private
     end
   end
   
+  module ReruExt
+    def read(io = $stdin)
+      Reru::IO::Reader.new(io)
+    end
+  end
+  Reru.send :extend, ReruExt
 end
